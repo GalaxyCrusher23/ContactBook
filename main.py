@@ -10,7 +10,7 @@ def click():
     Count = tkinter.Label(gui, text=str(count))
     Count.pack()
 
-add = tkinter.Button(gui, text="Add Contact", command=click)
+add = tkinter.Button(gui, text="Add Contact", command=click, fg="blue")
 add.pack()
 
 gui.title('Contact Book')
