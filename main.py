@@ -3,7 +3,9 @@ import tkinter
 gui = tkinter.Tk()
 gui.title('Contact Book')
 gui.geometry('500x500+0+0')
+gui.iconbitmap("./PalPadSprite.webp")
 
+'''#This is for later use
 name = tkinter.Entry(gui, width=20)
 name.pack()
 
@@ -14,6 +16,8 @@ def username():
 
 add = tkinter.Button(gui, text="Continue", command=username, fg="white", bg="blue")
 add.pack()
+'''
+
 
 
 gui.mainloop()
