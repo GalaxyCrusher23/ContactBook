@@ -3,7 +3,7 @@ import tkinter
 gui = tkinter.Tk()
 gui.title('Contact Book')
 gui.geometry('500x500+0+0')
-gui.iconbitmap("./PalPadSprite.webp")
+gui.iconbitmap("./PalPadSprite.ico")
 
 '''#This is for later use
 name = tkinter.Entry(gui, width=20)
