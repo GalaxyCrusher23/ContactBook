@@ -17,12 +17,13 @@ gui.iconbitmap("PalPadSprite.ico")
 #Changes style and font of text
 title_fontStyle = tkFont.Font(family="Lucida Grande", size=32)
 
-username_title = tkinter.Label(gui, text="What is your name?", font=title_fontStyle)
+username_title = tkinter.Label(gui, text="Sanjeev's Contacts", font=title_fontStyle)
 username_title.pack()
 
-username = tkinter.Entry(gui, width=30)
-username.pack()
+contacts = []
 
+def add():
+    pass
 #To add any image
 #img = ImageTk.PhotoImage(Image.open(""))
 
