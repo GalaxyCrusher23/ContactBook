@@ -1,13 +1,5 @@
 import tkinter
 import tkinter.font as tkFont
-from PIL import ImageTk, Image
-#Need to install Pillow by using pip install
-
-def add():
-    pass
-
-def select():
-    pass
 
 gui = tkinter.Tk()
 
@@ -20,6 +12,20 @@ gui.geometry('500x500+0+0')
 #Change the icon of the application
 gui.iconbitmap("PalPadSprite.ico")
 
+def add():
+    #Setting up pop-up window like main window
+    global add_contact
+    add_contact = tkinter.Toplevel(gui)
+    add_contact.title("Add Contact")
+    add_contact.geometry("300x200")
+    add_contact.iconbitmap("PalPadSprite.ico")
+
+    global add
+    add = tkinter.Entry(add_contact, width=30)
+    add.pack()
+
+def select():
+    pass
 
 #Changes style and font of text
 title_fontStyle = tkFont.Font(family="Lucida Grande", size=24)
@@ -30,28 +36,10 @@ username_title.place(x=112.5, y=0)
 
 contacts = []
 
-img = ImageTk.PhotoImage(Image.open("AddContact.png"))
-plus = tkinter.Label(gui, image=img)
-#plus.image = img
+img = tkinter.PhotoImage(file="AddContact.png")
+plus_img = tkinter.Label(image=img)
+plus = tkinter.Button(gui, image=img, command=add, borderwidth=0)
 plus.place(x=350, y=350)
-#tkinter.Label(image=img).grid(row=390, column=390)
-
-
-#To add any image
-#img = ImageTk.PhotoImage(Image.open(""))
-
-'''#This is for later use
-name = tkinter.Entry(gui, width=20)
-name.pack()
-
-def username():
-    title = name.get() + "'s Contacts"
-    Name = tkinter.Label(gui, text=title)
-    Name.pack()
-
-add = tkinter.Button(gui, text="Continue", command=username, fg="white", bg="blue")
-add.pack()
-'''
 
 
 gui.resizable(False, False)
