@@ -2,6 +2,9 @@ import tkinter
 import tkinter.font as tkFont
 from tkinter import messagebox
 
+contacts = []
+
+#Initialize the GUI/Application
 gui = tkinter.Tk()
 
 #Gives title to application
@@ -13,11 +16,22 @@ gui.geometry('500x500+0+0')
 #Change the icon of the application
 gui.iconbitmap("PalPadSprite.ico")
 
+#Changes style and font of text
+title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight=tkFont.BOLD)
+contact_fontStyle = tkFont.Font(family = "Times", size = 14)
+
 def add():
-    if len(name.get()) > 0:
+    if len(name.get()) > 0 and len(num.get()) > 0:
         contacts.append(str(name.get()))
+        #print(contacts)
+        for i in range(len(contacts)):
+            contacts_list = tkinter.Label(gui, text = contacts[i], font = contact_fontStyle)
+            contacts_list.place(x = 5, y = 75 + i*20 )
+        add_contact.destroy()
     else:
-        messagebox.showerror("Error", "No name entered")
+       messagebox.showerror("Error", "Requirements have not been filled")
+        
+    
 
 def AddContact():
     #Setting up pop-up window like main window
@@ -44,23 +58,22 @@ def AddContact():
     addButton = tkinter.Button(add_contact, text = "Add", bg = "white", fg = "blue", width = 5, command = add)
     addButton.pack()
 
-def select():
-    pass
-
-#Changes style and font of text
-title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24)
+def selectContact():
+    global select_contact
+    select_contact = tkinter.Toplevel(gui)
+    select_contact.title("Add Contact")
+    select_contact.geometry("300x200")
+    select_contact.iconbitmap("PalPadSprite.ico")
 
 username_title = tkinter.Label(gui, text = "Sanjeev's Contacts", font = title_fontStyle)
 #username_title .grid(row=0, column=250)
 username_title.place(x = 112.5, y = 0)
-
-contacts = []
 
 img = tkinter.PhotoImage(file = "AddContact.png")
 plus_img = tkinter.Label(image = img)
 plus = tkinter.Button(gui, image = img, command = AddContact, borderwidth = 0)
 plus.place(x = 350, y = 350)
 
-
+#Cannot resize the window
 gui.resizable(False, False)
 gui.mainloop()
