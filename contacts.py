@@ -1,5 +1,6 @@
 import tkinter
 import tkinter.font as tkFont
+from tkinter import messagebox
 
 gui = tkinter.Tk()
 
@@ -13,6 +14,12 @@ gui.geometry('500x500+0+0')
 gui.iconbitmap("PalPadSprite.ico")
 
 def add():
+    if len(name.get()) > 0:
+        contacts.append(str(name.get()))
+    else:
+        messagebox.showerror("Error", "No name entered")
+
+def AddContact():
     #Setting up pop-up window like main window
     global add_contact
     add_contact = tkinter.Toplevel(gui)
@@ -34,6 +41,9 @@ def add():
     num_label = tkinter.Label(add_contact, text = "Phone Number: ")
     num_label.place(x = 10, y = 125)
 
+    addButton = tkinter.Button(add_contact, text = "Add", bg = "white", fg = "blue", width = 5, command = add)
+    addButton.pack()
+
 def select():
     pass
 
@@ -48,7 +58,7 @@ contacts = []
 
 img = tkinter.PhotoImage(file = "AddContact.png")
 plus_img = tkinter.Label(image = img)
-plus = tkinter.Button(gui, image = img, command = add, borderwidth = 0)
+plus = tkinter.Button(gui, image = img, command = AddContact, borderwidth = 0)
 plus.place(x = 350, y = 350)
 
 
