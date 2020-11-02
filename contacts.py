@@ -17,7 +17,7 @@ gui.geometry('500x500+0+0')
 gui.iconbitmap("PalPadSprite.ico")
 
 #Changes style and font of text
-title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight=tkFont.BOLD)
+title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight = tkFont.BOLD, underline = True)
 contact_fontStyle = tkFont.Font(family = "Times", size = 14)
 
 contact_list = tkinter.Button(gui)
@@ -30,7 +30,6 @@ def add():
             int(num.get())
         except ValueError:
             messagebox.showerror("Error", "Invalid Phone Number")
-            raise
         global contact_list
         contacts.append([name.get(), num.get()])
         contacts.sort()
@@ -43,6 +42,10 @@ def add():
     else:
        messagebox.showerror("Error", "Requirements have not been filled")
         
+def remove():
+    response = messagebox.askyesno("Remove Contact?", "Are you sure you want to remove this contact?")
+    #if response == 1:
+    #    contacts.remove()
     
 
 def AddContact():
@@ -74,13 +77,24 @@ def selectContact():
     global select_contact
     select_contact = tkinter.Toplevel(gui)
     select_contact.title("Contact")
-    select_contact.geometry("300x200")
+    select_contact.geometry("333x333")
     select_contact.iconbitmap("PalPadSprite.ico")
+
+    contact_name = tkinter.Label(select_contact, text = "-Contact Name-")
+    contact_name.place(x = 117.5, y = 166)
+
+    msg = tkinter.Button(select_contact, text = "Message", fg = "blue", borderwidth = 0)
+    msg.place(x = 66, y = 225)
+
+    call = tkinter.Button(select_contact, text = "Call", fg = "blue", borderwidth = 0)
+    call.place(x = 333/2 - 10, y = 225)
+
+    removeButton = tkinter.Button(select_contact, text = "Remove", fg = "blue", borderwidth = 0, command = remove)
+    removeButton.place(x = 222, y = 225)
 
 
 
 username_title = tkinter.Label(gui, text = "Sanjeev's Contacts", font = title_fontStyle)
-#username_title .grid(row=0, column=250)
 username_title.place(x = 112.5, y = 0)
 
 img = tkinter.PhotoImage(file = "AddContact.png")
