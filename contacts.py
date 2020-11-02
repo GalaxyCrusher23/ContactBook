@@ -1,7 +1,7 @@
 import tkinter
 import tkinter.font as tkFont
 from tkinter import messagebox
-from tkinter import *
+from tkinter import IntVar
 
 contacts = []
 
@@ -31,6 +31,7 @@ def add():
             int(num.get())
         except ValueError:
             messagebox.showerror("Error", "Invalid Phone Number")
+            raise 
         global contact_list
         contacts.append([name.get(), num.get()])
         contacts.sort()
