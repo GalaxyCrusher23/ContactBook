@@ -20,13 +20,20 @@ gui.iconbitmap("PalPadSprite.ico")
 title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight=tkFont.BOLD)
 contact_fontStyle = tkFont.Font(family = "Times", size = 14)
 
+contact_list = tkinter.Button(gui)
+
 def add():
+    global contact_list
+    contactx = 5
+    contacty = 75
     if len(name.get()) > 0 and len(num.get()) > 0:
-        contacts.append(str(name.get()))
+        contacts.append([name.get(), num.get()])
+        contacts.sort()
         #print(contacts)
+        contact_list.destroy()
         for i in range(len(contacts)):
-            contacts_list = tkinter.Label(gui, text = contacts[i], font = contact_fontStyle)
-            contacts_list.place(x = 5, y = 75 + i*20 )
+            contact_list = tkinter.Button(gui, text = contacts[i][0] + " (" + contacts[i][1] + ")", font = contact_fontStyle, fg = "blue", command = selectContact, borderwidth = 0)
+            contact_list.place(x = contactx, y = contacty + i*30 )
         add_contact.destroy()
     else:
        messagebox.showerror("Error", "Requirements have not been filled")
@@ -61,7 +68,7 @@ def AddContact():
 def selectContact():
     global select_contact
     select_contact = tkinter.Toplevel(gui)
-    select_contact.title("Add Contact")
+    select_contact.title("Contact")
     select_contact.geometry("300x200")
     select_contact.iconbitmap("PalPadSprite.ico")
 
