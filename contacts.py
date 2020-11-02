@@ -23,10 +23,15 @@ contact_fontStyle = tkFont.Font(family = "Times", size = 14)
 contact_list = tkinter.Button(gui)
 
 def add():
-    global contact_list
     contactx = 5
     contacty = 75
     if len(name.get()) > 0 and len(num.get()) > 0:
+        try:
+            int(num.get())
+        except ValueError:
+            messagebox.showerror("Error", "Invalid Phone Number")
+            raise
+        global contact_list
         contacts.append([name.get(), num.get()])
         contacts.sort()
         #print(contacts)
@@ -71,6 +76,8 @@ def selectContact():
     select_contact.title("Contact")
     select_contact.geometry("300x200")
     select_contact.iconbitmap("PalPadSprite.ico")
+
+
 
 username_title = tkinter.Label(gui, text = "Sanjeev's Contacts", font = title_fontStyle)
 #username_title .grid(row=0, column=250)
