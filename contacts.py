@@ -1,6 +1,7 @@
 import tkinter
 import tkinter.font as tkFont
 from tkinter import messagebox
+from tkinter import *
 
 contacts = []
 
@@ -92,7 +93,17 @@ def selectContact():
     removeButton = tkinter.Button(select_contact, text = "Remove", fg = "blue", borderwidth = 0, command = remove)
     removeButton.place(x = 222, y = 225)
 
+def sortContacts():
+    global sort_contact
+    sort_contact = tkinter.Toplevel(gui)
+    sort_contact.title("Sort")
+    sort_contact.geometry("200x200")
+    sort_contact.iconbitmap("PalPadSprite.ico")
 
+    sort =  IntVar()
+
+    tkinter.Radiobutton(sort_contact, text = "Name", variable = sort, value = 1).place(x = 0, y = 0)
+    tkinter.Radiobutton(sort_contact, text = "Number", variable = sort, value = 2).place(x = 0, y = 50)
 
 username_title = tkinter.Label(gui, text = "Sanjeev's Contacts", font = title_fontStyle)
 username_title.place(x = 112.5, y = 0)
@@ -101,6 +112,9 @@ img = tkinter.PhotoImage(file = "AddContact.png")
 plus_img = tkinter.Label(image = img)
 plus = tkinter.Button(gui, image = img, command = AddContact, borderwidth = 0)
 plus.place(x = 350, y = 350)
+
+sortButton = tkinter.Button(gui, text = "Sort", command = sortContacts)
+sortButton.place(x = 0, y = 0)
 
 #Cannot resize the window
 gui.resizable(False, False)
