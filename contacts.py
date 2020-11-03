@@ -3,8 +3,6 @@ import tkinter.font as tkFont
 from tkinter import messagebox
 from tkinter import *
 
-contacts = []
-
 #Initialize the GUI/Application
 gui = tkinter.Tk()
 
@@ -20,9 +18,6 @@ gui.iconbitmap("PalPadSprite.ico")
 #Changes style and font of text
 title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight = tkFont.BOLD, underline = True)
 contact_fontStyle = tkFont.Font(family = "Times", size = 14)
-
-contact_list = tkinter.Listbox(gui, font = contact_fontStyle, fg = "blue", height = 18, width = 36)
-contact_list.place(x = 5, y = 75)
 
 def add():
     if len(name.get()) > 0 and len(num.get()) > 0:
@@ -42,11 +37,15 @@ def add():
         
 def remove():
     response = messagebox.askyesno("Remove Contact?", "Are you sure you want to remove this contact?")
-    
+    if response == 1:
+        contacts.pop(list(contact_list.get(0, END)).index(contact_list.get(ANCHOR)))
+        contact_list.delete(ANCHOR)
+        #print(list(contact_list.get(0, END)).index(contact_list.get(ANCHOR)))
 
 def AddContact():
     #Setting up pop-up window like main window
     global add_contact
+    #add_contact.destroy()
     add_contact = tkinter.Toplevel(gui)
     add_contact.title("Add Contact")
     add_contact.geometry("300x200")
@@ -69,7 +68,7 @@ def AddContact():
     addButton = tkinter.Button(add_contact, text = "Add", bg = "white", fg = "blue", width = 5, command = add)
     addButton.pack()
 
-def selectContact():
+def selectContact(event):
     global select_contact
     select_contact = tkinter.Toplevel(gui)
     select_contact.title("Contact")
@@ -121,6 +120,12 @@ plus.place(x = 350, y = 350)
 
 sortButton = tkinter.Button(gui, text = "Sort", command = sortContacts)
 sortButton.place(x = 0, y = 0)
+
+contact_list = tkinter.Listbox(gui, font = contact_fontStyle, fg = "blue", height = 18, width = 31)
+contact_list.place(x = 5, y = 75)
+contact_list.bind('<Double-1>', selectContact)
+
+contacts = []
 
 #Cannot resize the window
 gui.resizable(False, False)
