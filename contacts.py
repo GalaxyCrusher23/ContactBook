@@ -102,6 +102,7 @@ def sortContacts():
     sort_contact.iconbitmap("PalPadSprite.ico")
 
     sort =  IntVar()
+    sort.get()
 
     tkinter.Radiobutton(sort_contact, text = "Name", variable = sort, value = 1).place(x = 0, y = 0)
     tkinter.Radiobutton(sort_contact, text = "Number", variable = sort, value = 2).place(x = 0, y = 50)
