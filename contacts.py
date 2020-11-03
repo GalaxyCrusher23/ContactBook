@@ -45,7 +45,6 @@ def remove():
 def AddContact():
     #Setting up pop-up window like main window
     global add_contact
-    #add_contact.destroy()
     add_contact = tkinter.Toplevel(gui)
     add_contact.title("Add Contact")
     add_contact.geometry("300x200")
@@ -75,7 +74,7 @@ def selectContact(event):
     select_contact.geometry("333x333")
     select_contact.iconbitmap("PalPadSprite.ico")
 
-    contact_name = tkinter.Label(select_contact, text = "-Contact Name-")
+    contact_name = tkinter.Label(select_contact, text = contacts[list(contact_list.get(0, END)).index(contact_list.get(ANCHOR))][0])
     contact_name.place(x = 117.5, y = 166)
 
     msg = tkinter.Button(select_contact, text = "Message", fg = "blue", borderwidth = 0)
@@ -108,7 +107,6 @@ def sortContacts():
     tkinter.Radiobutton(sort_contact, text = "Number", variable = sort, value = 2).place(x = 0, y = 50)
     
     contacts.sort(key = sortList)
-    
 
 username_title = tkinter.Label(gui, text = "Sanjeev's Contacts", font = title_fontStyle)
 username_title.place(x = 112.5, y = 0)
