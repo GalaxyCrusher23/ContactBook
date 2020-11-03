@@ -31,15 +31,17 @@ def add():
         contact_list.delete(0, END)
         for i in range(len(contacts)):
             contact_list.insert(END, contacts[i][0] + " (" + contacts[i][1] + ")")
-        add_contact.destroy()
     else:
        messagebox.showerror("Error", "Requirements have not been filled")
+    
+    add_contact.destroy()
         
 def remove():
     response = messagebox.askyesno("Remove Contact?", "Are you sure you want to remove this contact?")
     if response == 1:
         contacts.pop(list(contact_list.get(0, END)).index(contact_list.get(ANCHOR)))
         contact_list.delete(ANCHOR)
+        select_contact.destroy()
         #print(list(contact_list.get(0, END)).index(contact_list.get(ANCHOR)))
 
 def AddContact():
@@ -75,16 +77,16 @@ def selectContact(event):
     select_contact.iconbitmap("PalPadSprite.ico")
 
     contact_name = tkinter.Label(select_contact, text = contacts[list(contact_list.get(0, END)).index(contact_list.get(ANCHOR))][0])
-    contact_name.place(x = 117.5, y = 166)
+    contact_name.place(x = 333/2, y = 166, anchor = "center")
 
     msg = tkinter.Button(select_contact, text = "Message", fg = "blue", borderwidth = 0)
-    msg.place(x = 66, y = 225)
+    msg.place(x = 333/2 - 83.25, y = 225, anchor = "center")
 
     call = tkinter.Button(select_contact, text = "Call", fg = "blue", borderwidth = 0)
-    call.place(x = 333/2 - 10, y = 225)
+    call.place(x = 333/2, y = 225, anchor = "center")
 
     removeButton = tkinter.Button(select_contact, text = "Remove", fg = "blue", borderwidth = 0, command = remove)
-    removeButton.place(x = 222, y = 225)
+    removeButton.place(x = 333/2 + 83.25, y = 225, anchor = "center")
 
 def sortList(l):
     if sort.get() == 1:
@@ -109,7 +111,7 @@ def sortContacts():
     contacts.sort(key = sortList)
 
 username_title = tkinter.Label(gui, text = "Sanjeev's Contacts", font = title_fontStyle)
-username_title.place(x = 112.5, y = 0)
+username_title.place(x = 250, y = 25, anchor = "center")
 
 img = tkinter.PhotoImage(file = "AddContact.png")
 plus_img = tkinter.Label(image = img)
@@ -119,9 +121,21 @@ plus.place(x = 350, y = 350)
 sortButton = tkinter.Button(gui, text = "Sort", command = sortContacts)
 sortButton.place(x = 0, y = 0)
 
-contact_list = tkinter.Listbox(gui, font = contact_fontStyle, fg = "blue", height = 18, width = 31)
-contact_list.place(x = 5, y = 75)
+'''
+list_frame = Frame(gui)
+scroll_bar = Scrollbar(list_frame, orient = VERTICAL)
+
+contact_list = tkinter.Listbox(list_frame, font = contact_fontStyle, fg = "blue", height = 18, width = 31, yscrollcommand = scroll_bar.set)
 contact_list.bind('<Double-1>', selectContact)
+
+scroll_bar.config(command = contact_list.yview)
+scroll_bar.pack(side = RIGHT, fill = Y)
+list_frame.pack()
+contact_list.place(x = 5, y = 75)
+'''
+contact_list = tkinter.Listbox(gui, font = contact_fontStyle, fg = "blue", height = 18, width = 31)
+contact_list.bind('<Double-1>', selectContact)
+contact_list.place(x = 5, y = 75)
 
 contacts = []
 
