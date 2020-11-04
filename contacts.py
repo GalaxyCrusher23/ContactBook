@@ -19,6 +19,8 @@ gui.iconbitmap("PalPadSprite.ico")
 title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight = tkFont.BOLD, underline = True)
 contact_fontStyle = tkFont.Font(family = "Times", size = 14)
 
+contacts = []
+
 def add():
     if len(name.get()) > 0 and len(num.get()) > 0:
         try:
@@ -88,11 +90,77 @@ def selectContact(event):
     removeButton = tkinter.Button(select_contact, text = "Remove", fg = "blue", borderwidth = 0, command = remove)
     removeButton.place(x = 333/2 + 83.25, y = 225, anchor = "center")
 
-def sortList(l):
-    if sort.get() == 1:
-        return l[0]
+def num_sort(array):
+    # Loop from the second element of the array until
+    # the last element
+    for i in range(1, len(array)):
+        # This is the element we want to position in its
+        # correct place
+        key_list = array[i]
+
+        # Initialize the variable that will be used to
+        # find the correct position of the element.
+        j = i - 1
+
+        # Run through the list of items (the left
+        # portion of the array) and find the correct position
+        # of the element. Do this only if the element is 
+        # smaller than its adjacent values.
+        while j >= 0 and array[j][1] > array[i][1]:
+            # Shift the value one position to the left
+            # and reposition j to point to the next element
+            # (from right to left)
+            array[j + 1] = array[j]
+            j -= 1
+
+        # When you finish shifting the elements, you can position
+        # the specified element in its correct location
+        array[j + 1] = key_list
+
+    return array
+
+def name_sort(array):
+    # Loop from the second element of the array until
+    # the last element
+    for i in range(1, len(array)):
+        # This is the element we want to position in its
+        # correct place
+        key_list = array[i]
+
+        # Initialize the variable that will be used to
+        # find the correct position of the element 
+        j = i - 1
+
+        # Run through the list of items (the left
+        # portion of the array) and find the correct position
+        # of the element. Do this only if the element is 
+        # smaller than its adjacent values.
+        while j >= 0 and array[j][0] > array[i][0]:
+            # Shift the value one position to the left
+            # and reposition j to point to the next element
+            # (from right to left)
+            array[j + 1] = array[j]
+            j -= 1
+
+        # When you finish shifting the elements, you can position
+        # the specified element in its correct location
+        array[j + 1]= key_list
+
+    return array
+
+def sortList(value):
+    global contacts
+    if value == 1:
+        #Sort by Name
+        contacts = name_sort(contacts)
     else:
-        return l[1]
+        #Sort by Number
+        contacts = num_sort(contacts)
+    
+    print(contacts)
+    
+    #myList = [[Name,Num],[Name,Num],[Name,Num],[Name,Num],[Name,Num]]
+    #myList.sort() --> sorts by Name
 
 def sortContacts():
     global sort_contact
@@ -103,12 +171,12 @@ def sortContacts():
 
     global sort
     sort =  IntVar()
-    sort.get()
+    sort.set(1)
 
-    tkinter.Radiobutton(sort_contact, text = "Name", variable = sort, value = 1).place(x = 0, y = 0)
-    tkinter.Radiobutton(sort_contact, text = "Number", variable = sort, value = 2).place(x = 0, y = 50)
+    tkinter.Radiobutton(sort_contact, text = "Name", variable = sort, value = 1, command = lambda: sortList(sort.get())).place(x = 0, y = 0)
+    tkinter.Radiobutton(sort_contact, text = "Number", variable = sort, value = 2, command = lambda: sortList(sort.get())).place(x = 0, y = 50)
     
-    contacts.sort(key = sortList)
+    #contacts.sort(key = sortList)
 
 username_title = tkinter.Label(gui, text = "Sanjeev's Contacts", font = title_fontStyle)
 username_title.place(x = 250, y = 25, anchor = "center")
@@ -136,8 +204,6 @@ contact_list.place(x = 5, y = 75)
 contact_list = tkinter.Listbox(gui, font = contact_fontStyle, fg = "blue", height = 18, width = 31)
 contact_list.bind('<Double-1>', selectContact)
 contact_list.place(x = 5, y = 75)
-
-contacts = []
 
 #Cannot resize the window
 gui.resizable(False, False)
