@@ -53,13 +53,13 @@ def updateList():
     global contact_list
     contact_list.delete(0, END)
     for i in range(len(contacts)):
-        contact_list.insert(END, contacts[i][0] + " (" + contacts[i][1] + ")")
+        contact_list.insert(END, contacts[i][0] + " (" + str(contacts[i][1]) + ")")
 
 def add():
     if len(name.get()) > 0 and len(num.get()) > 0:
         try:
             int(num.get())
-            contacts.append([name.get(), num.get()])
+            contacts.append([name.get(), int(num.get())])
             updateList()
         except ValueError:
             messagebox.showerror("Error", "Invalid Phone Number") 
@@ -121,63 +121,60 @@ def selectContact(event):
     removeButton.place(x = 333/2 + 83.25, y = 225, anchor = "center")
 
 def num_sort(array):
-    # Loop from the second element of the array until
-    # the last element
-    for i in range(1, len(array)):
-        # This is the element we want to position in its
-        # correct place
-        key_list = array[i]
+    from random import randint
+   # If the input array contains fewer than two elements,
+    # then return it as the result of the function
+    if len(array) < 2:
+        return array
 
-        # Initialize the variable that will be used to
-        # find the correct position of the element.
-        j = i - 1
+    low, same, high = [], [], []
 
-        # Run through the list of items (the left
-        # portion of the array) and find the correct position
-        # of the element. Do this only if the element is 
-        # smaller than its adjacent values.
-        while j >= 0 and array[j][1] > array[i][1]:
-            # Shift the value one position to the left
-            # and reposition j to point to the next element
-            # (from right to left)
-            array[j + 1] = array[j]
-            j -= 1
+    # Select your `pivot` element randomly
+    pivot = array[randint(0, len(array) - 1)][1]
 
-        # When you finish shifting the elements, you can position
-        # the specified element in its correct location
-        array[j + 1] = key_list
+    for item in array:
+        # Elements that are smaller than the `pivot` go to
+        # the `low` list. Elements that are larger than
+        # `pivot` go to the `high` list. Elements that are
+        # equal to `pivot` go to the `same` list.
+        if item[1] < pivot:
+            low.append(item)
+        elif item[1] == pivot:
+            same.append(item)
+        elif item[1] > pivot:
+            high.append(item)
 
-    return array
+    # The final result combines the sorted `low` list
+    # with the `same` list and the sorted `high` list
+    return num_sort(low) + same + num_sort(high)
 
 def name_sort(array):
-    # Loop from the second element of the array until
-    # the last element
-    for i in range(1, len(array)):
-        # This is the element we want to position in its
-        # correct place
-        key_list = array[i]
+    from random import randint
+   # If the input array contains fewer than two elements,
+    # then return it as the result of the function
+    if len(array) < 2:
+        return array
 
-        # Initialize the variable that will be used to
-        # find the correct position of the element 
-        j = i - 1
+    low, same, high = [], [], []
 
-        # Run through the list of items (the left
-        # portion of the array) and find the correct position
-        # of the element. Do this only if the element is 
-        # smaller than its adjacent values.
-        while j >= 0 and array[j][0] > array[i][0]:
-            # Shift the value one position to the left
-            # and reposition j to point to the next element
-            # (from right to left)
-            array[j + 1] = array[j]
-            j -= 1
+    # Select your `pivot` element randomly
+    pivot = array[randint(0, len(array) - 1)][0]
 
-        # When you finish shifting the elements, you can position
-        # the specified 
-        # element in its correct location
-        array[j + 1]= key_list
+    for item in array:
+        # Elements that are smaller than the `pivot` go to
+        # the `low` list. Elements that are larger than
+        # `pivot` go to the `high` list. Elements that are
+        # equal to `pivot` go to the `same` list.
+        if item[0] < pivot:
+            low.append(item)
+        elif item[0] == pivot:
+            same.append(item)
+        elif item[0] > pivot:
+            high.append(item)
 
-    return array
+    # The final result combines the sorted `low` list
+    # with the `same` list and the sorted `high` list
+    return name_sort(low) + same + name_sort(high)
 
 def sortList(value):
     global contacts
