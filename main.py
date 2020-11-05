@@ -23,6 +23,9 @@ v1 = StringVar()
 username = tkinter.Entry(user_input, width=30, textvariable = v1)
 username.pack()
 
+text = v1.get()
+v1.set(text)
+
 enterButton = tkinter.Button(user_input, text = "Enter", command = enter)
 enterButton.pack()
 
@@ -46,18 +49,20 @@ contact_fontStyle = tkFont.Font(family = "Times", size = 14)
 
 contacts = []
 
+def updateList():
+    global contact_list
+    contact_list.delete(0, END)
+    for i in range(len(contacts)):
+        contact_list.insert(END, contacts[i][0] + " (" + contacts[i][1] + ")")
+
 def add():
     if len(name.get()) > 0 and len(num.get()) > 0:
         try:
             int(num.get())
+            contacts.append([name.get(), num.get()])
+            updateList()
         except ValueError:
-            messagebox.showerror("Error", "Invalid Phone Number")
-            raise 
-        global contact_list
-        contacts.append([name.get(), num.get()])
-        contact_list.delete(0, END)
-        for i in range(len(contacts)):
-            contact_list.insert(END, contacts[i][0] + " (" + contacts[i][1] + ")")
+            messagebox.showerror("Error", "Invalid Phone Number") 
     else:
        messagebox.showerror("Error", "Requirements have not been filled")
     
@@ -67,7 +72,7 @@ def remove():
     response = messagebox.askyesno("Remove Contact?", "Are you sure you want to remove this contact?")
     if response == 1:
         contacts.pop(list(contact_list.get(0, END)).index(contact_list.get(ANCHOR)))
-        contact_list.delete(ANCHOR)
+        updateList()
         select_contact.destroy()
         #print(list(contact_list.get(0, END)).index(contact_list.get(ANCHOR)))
 
@@ -182,7 +187,7 @@ def sortList(value):
     else:
         #Sort by Number
         contacts = num_sort(contacts)
-    
+    updateList()
     print(contacts)
     
     #myList = [[Name,Num],[Name,Num],[Name,Num],[Name,Num],[Name,Num]]
