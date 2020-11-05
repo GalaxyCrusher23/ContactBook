@@ -15,7 +15,7 @@ user_input.iconbitmap("PalPadSprite.ico")
 def enter():
     user_input.destroy()
 
-username_title = tkinter.Label(user_input, text="What is your name?")
+username_title = tkinter.Label(user_input, text="What is your first name?")
 username_title.pack()
 
 v1 = StringVar()
@@ -203,7 +203,11 @@ def sortContacts():
     tkinter.Radiobutton(sort_contact, text = "Number", variable = sort, value = 2, command = lambda: sortList(sort.get())).place(x = 0, y = 50)
 
 def saveContacts():
-    pass
+    import json as serialize
+    with open('profile.txt', 'w') as file:
+        serialize.dump(v1.get(), file)
+    with open('profile.txt', 'w') as file:
+        serialize.dump(contacts, file)
 
 title = tkinter.Label(gui, text = v1.get() + "'s Contacts", font = title_fontStyle)
 title.place(x = 250, y = 25, anchor = "center")
