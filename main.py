@@ -34,7 +34,7 @@ def enter():
     #Checking if name have been filled
     if len(username.get()) > 0:
         if v1.get() == checkName('profile.txt', v1.get()):
-            print("Hi")
+            print("Welcome Back!")
     else:
         #Alerts User that name has not been filled out 
         messagebox.showerror("Error", "Name has not been filled")
