@@ -1,11 +1,15 @@
 #Importing the necessary modules/packages for this program/application
 import tkinter
 import tkinter.font as tkFont
+import sys
 from tkinter import messagebox
 from tkinter import *
 
-#Intro Screen
+#Initialize the Intro Window
 user_input = tkinter.Tk()
+
+#Sets the position and size of the application
+user_input.geometry('210x75+0+0')
 
 #Gives title to application
 user_input.title("Username?")
@@ -20,8 +24,11 @@ def enter():
     if len(username.get()) == 0:
         #Alerts User that name has not been filled out 
         messagebox.showerror("Error", "Name has not been filled")
-        
+
     user_input.destroy()
+
+def close():
+    sys.exit()
 
 #Setting up the title/question
 username_title = tkinter.Label(user_input, text="What is your first name?")
@@ -39,6 +46,9 @@ v1.set(text)
 #Setting up the Enter Button
 enterButton = tkinter.Button(user_input, text = "Enter", command = enter)
 enterButton.pack()
+
+#Will completely destroy the program >:)
+user_input.protocol('WM_DELETE_WINDOW', close)
 
 #Runs the Tkinter event loop
 user_input.mainloop()
