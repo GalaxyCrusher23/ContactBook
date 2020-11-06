@@ -15,7 +15,7 @@ user_input.geometry('210x75+0+0')
 user_input.title("Username?")
 
 #Change the icon of the application
-user_input.iconbitmap("PalPadSprite.ico")
+user_input.iconbitmap("./images/PalPadSprite.ico")
 
 #Used to destroy the intro window, and allow
 #the main window to run
@@ -63,7 +63,7 @@ gui.title('Contact Book')
 gui.geometry('500x500+0+0')
 
 #Change the icon of the application
-gui.iconbitmap("PalPadSprite.ico")
+gui.iconbitmap("./images/PalPadSprite.ico")
 
 #Changes style and font of text
 title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight = tkFont.BOLD, underline = True)
@@ -113,7 +113,7 @@ def AddContact():
     add_contact = tkinter.Toplevel(gui)
     add_contact.title("Add Contact")
     add_contact.geometry("300x200")
-    add_contact.iconbitmap("PalPadSprite.ico")
+    add_contact.iconbitmap("./images/PalPadSprite.ico")
 
     #Setting up the Label and Entry for the 'Name' of the contact
     global name
@@ -142,7 +142,7 @@ def selectContact(event):
     select_contact = tkinter.Toplevel(gui)
     select_contact.title("Contact")
     select_contact.geometry("333x333")
-    select_contact.iconbitmap("PalPadSprite.ico")
+    select_contact.iconbitmap("./images/PalPadSprite.ico")
 
     #Setting up Label for Contact name
     contact_name = tkinter.Label(select_contact, text = contacts[list(contact_list.get(0, END)).index(contact_list.get(ANCHOR))][0])
@@ -226,12 +226,11 @@ def sortContacts():
     sort_contact = tkinter.Toplevel(gui)
     sort_contact.title("Sort")
     sort_contact.geometry("200x200")
-    sort_contact.iconbitmap("PalPadSprite.ico")
+    sort_contact.iconbitmap("./images/PalPadSprite.ico")
 
     #Used to get the value of whichever button is selected
     global sort
     sort =  IntVar()
-    sort.set(1)
 
     #Setting up Radio Buttons to give user options for
     #how they want to sort their contacts
@@ -250,7 +249,7 @@ title = tkinter.Label(gui, text = v1.get() + "'s Contacts", font = title_fontSty
 title.place(x = 250, y = 25, anchor = "center")
 
 #Setting the Plus Button (Add Contact)
-img = tkinter.PhotoImage(file = "AddContact.png")
+img = tkinter.PhotoImage(file = "./images/AddContact.png")
 plus_img = tkinter.Label(image = img)
 plus = tkinter.Button(gui, image = img, command = AddContact, borderwidth = 0)
 plus.place(x = 350, y = 350)
