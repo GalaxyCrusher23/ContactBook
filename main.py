@@ -17,11 +17,25 @@ user_input.title("Username?")
 #Change the icon of the application
 user_input.iconbitmap("./images/PalPadSprite.ico")
 
+def checkName(file_name, string_to_search):
+    #Check if any line in the file contains given string 
+    # Open the file in read only mode
+    with open(file_name, 'r') as read_obj:
+        # Read all lines in the file one by one
+        for line in read_obj:
+            # For each line, check if line contains the string
+            if string_to_search in line:
+                return string_to_search
+    return ""
+
 #Used to destroy the intro window, and allow
 #the main window to run
 def enter():
     #Checking if name have been filled
-    if len(username.get()) == 0:
+    if len(username.get()) > 0:
+        if v1.get() == checkName('profile.txt', v1.get()):
+            print("Hi")
+    else:
         #Alerts User that name has not been filled out 
         messagebox.showerror("Error", "Name has not been filled")
 
@@ -40,9 +54,6 @@ v1 = StringVar()
 #Setting the Username Entry 
 username = tkinter.Entry(user_input, width=30, textvariable = v1)
 username.pack()
-
-text = v1.get()
-v1.set(text)
 
 #Setting up the Enter Button
 enterButton = tkinter.Button(user_input, text = "Enter", command = enter)
@@ -239,11 +250,9 @@ def sortContacts():
     tkinter.Radiobutton(sort_contact, text = "Number", variable = sort, value = 2, command = lambda: sortList(sort.get())).place(x = 0, y = 50)
 
 def saveContacts():
-    import json as serialize
-    with open('profile.txt', 'w') as file:
-        serialize.dump(v1.get(), file)
-    with open('profile.txt', 'w') as file:
-        serialize.dump(contacts, file)
+    text_file = open('profile.txt', 'a')
+    text_file.write("\n" + v1.get())
+    text_file.write("\n" + str(contacts))
 
 #Setting up the Title label
 title = tkinter.Label(gui, text = v1.get() + "'s Contacts", font = title_fontStyle)
