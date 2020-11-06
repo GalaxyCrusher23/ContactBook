@@ -34,6 +34,7 @@ def checkName(string_to_search):
                 return string_to_search
     return ""
 
+#The procedure to retrieve contacts if user has logged in before
 def getContacts():
     global contacts
     with open('contacts.txt', 'r') as read_obj:
@@ -47,6 +48,7 @@ def enter():
     global contacts
     #Checking if name have been filled
     if len(username.get()) > 0:
+        #Checks if user has logged in before
         if v1.get() == checkName(v1.get()):
             print("Welcome Back!")
             getContacts()
@@ -95,11 +97,11 @@ title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight = tkFo
 contact_fontStyle = tkFont.Font(family = "Times", size = 14)
 
 #Initializing the list for the Contacts
+#Checking if user had a previous set of contacts
 if v1.get() == checkName(v1.get()):
     contacts = contacts
 else:
     contacts = []
-
 
 #Used whenever the Listbox needs to be updated
 def updateList():
@@ -296,10 +298,8 @@ saveButton.place(x = 465, y = 0)
 #Setting up the Frame for scrollbar and Listbox
 list_frame = Frame(gui)
 scroll_bar = Scrollbar(list_frame, orient = VERTICAL)
-
 contact_list = tkinter.Listbox(list_frame, font = contact_fontStyle, fg = "blue", height = 18, width = 31, yscrollcommand = scroll_bar.set)
 contact_list.bind('<Double-1>', selectContact)
-
 scroll_bar.config(command = contact_list.yview)
 scroll_bar.pack(side = RIGHT, fill = Y)
 list_frame.place(x = 5, y = 75)
