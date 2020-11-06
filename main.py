@@ -17,6 +17,7 @@ user_input.title("Username?")
 #Change the icon of the application
 user_input.iconbitmap("./images/PalPadSprite.ico")
 
+#Checks if username was saved before
 def checkName(file_name, string_to_search):
     #Check if any line in the file contains given string 
     # Open the file in read only mode
