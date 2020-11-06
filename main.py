@@ -18,24 +18,36 @@ user_input.title("Username?")
 user_input.iconbitmap("./images/PalPadSprite.ico")
 
 #Checks if username was saved before
-def checkName(file_name, string_to_search):
-    #Check if any line in the file contains given string 
+def checkName(string_to_search):
+    global contactpos 
     # Open the file in read only mode
-    with open(file_name, 'r') as read_obj:
+    with open('username.txt', 'r') as read_obj:
         # Read all lines in the file one by one
-        for line in read_obj:
+        for position, line in enumerate(read_obj):
             # For each line, check if line contains the string
             if string_to_search in line:
+                contactpos = position
                 return string_to_search
     return ""
+
+def getContacts():
+    import ast
+    global contacts
+    with open('contacts.txt', 'r') as read_obj:
+        contacts = read_obj.readlines(contactpos)
+        contacts = ast.literal_eval(contacts[0])
+        print(contacts)
+        
+
 
 #Used to destroy the intro window, and allow
 #the main window to run
 def enter():
     #Checking if name have been filled
     if len(username.get()) > 0:
-        if v1.get() == checkName('profile.txt', v1.get()):
+        if v1.get() == checkName(v1.get()):
             print("Welcome Back!")
+            getContacts()
     else:
         #Alerts User that name has not been filled out 
         messagebox.showerror("Error", "Name has not been filled")
@@ -83,7 +95,7 @@ title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight = tkFo
 contact_fontStyle = tkFont.Font(family = "Times", size = 14)
 
 #Initializing the list for the Contacts
-contacts = []
+contacts = contacts
 
 #Used whenever the Listbox needs to be updated
 def updateList():
@@ -251,10 +263,12 @@ def sortContacts():
     tkinter.Radiobutton(sort_contact, text = "Number", variable = sort, value = 2, command = lambda: sortList(sort.get())).place(x = 0, y = 50)
 
 def saveContacts():
-    text_file = open('profile.txt', 'a')
-    text_file.write("\n" + v1.get())
-    text_file.write("\n" + str(contacts))
+    with open('username.txt', 'a') as userfile:
+        userfile.write(v1.get())
+    with open('contacts.txt', 'a') as contactfile:
+        contactfile.write(str(contacts))
 
+   
 #Setting up the Title label
 title = tkinter.Label(gui, text = v1.get() + "'s Contacts", font = title_fontStyle)
 title.place(x = 250, y = 25, anchor = "center")
