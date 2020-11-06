@@ -16,6 +16,11 @@ user_input.iconbitmap("PalPadSprite.ico")
 #Used to destroy the intro window, and allow
 #the main window to run
 def enter():
+    #Checking if name have been filled
+    if len(username.get()) == 0:
+        #Alerts User that name has not been filled out 
+        messagebox.showerror("Error", "Name has not been filled")
+        
     user_input.destroy()
 
 #Setting up the title/question
