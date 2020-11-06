@@ -185,10 +185,6 @@ def sortList(value):
         #Sort by Number
         contacts = num_sort(contacts)
     updateList()
-    print(contacts)
-    
-    #myList = [[Name,Num],[Name,Num],[Name,Num],[Name,Num],[Name,Num]]
-    #myList.sort() --> sorts by Name
 
 def sortContacts():
     global sort_contact
