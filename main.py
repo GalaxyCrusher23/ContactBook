@@ -2,6 +2,7 @@
 import tkinter
 import tkinter.font as tkFont
 import sys
+import ast
 from tkinter import messagebox
 from tkinter import *
 
@@ -17,6 +18,9 @@ user_input.title("Username?")
 #Change the icon of the application
 user_input.iconbitmap("./images/PalPadSprite.ico")
 
+v1 = StringVar()
+v2 = StringVar()
+
 #Checks if username was saved before
 def checkName(string_to_search):
     global contactpos 
@@ -31,18 +35,16 @@ def checkName(string_to_search):
     return ""
 
 def getContacts():
-    import ast
     global contacts
     with open('contacts.txt', 'r') as read_obj:
         contacts = read_obj.readlines(contactpos)
         contacts = ast.literal_eval(contacts[0])
         print(contacts)
-        
-
 
 #Used to destroy the intro window, and allow
 #the main window to run
 def enter():
+    global contacts
     #Checking if name have been filled
     if len(username.get()) > 0:
         if v1.get() == checkName(v1.get()):
@@ -61,8 +63,6 @@ def close():
 #Setting up the title/question
 username_title = tkinter.Label(user_input, text="What is your first name?")
 username_title.pack()
-
-v1 = StringVar()
 
 #Setting the Username Entry 
 username = tkinter.Entry(user_input, width=30, textvariable = v1)
@@ -95,7 +95,11 @@ title_fontStyle = tkFont.Font(family = "Lucida Grande", size = 24, weight = tkFo
 contact_fontStyle = tkFont.Font(family = "Times", size = 14)
 
 #Initializing the list for the Contacts
-contacts = contacts
+if v1.get() == checkName(v1.get()):
+    contacts = contacts
+else:
+    contacts = []
+
 
 #Used whenever the Listbox needs to be updated
 def updateList():
@@ -262,7 +266,9 @@ def sortContacts():
     tkinter.Radiobutton(sort_contact, text = "Name", variable = sort, value = 1, command = lambda: sortList(sort.get())).place(x = 0, y = 0)
     tkinter.Radiobutton(sort_contact, text = "Number", variable = sort, value = 2, command = lambda: sortList(sort.get())).place(x = 0, y = 50)
 
+#The procedure to save username and contacts
 def saveContacts():
+    #Open their separate files and add them
     with open('username.txt', 'a') as userfile:
         userfile.write(v1.get())
     with open('contacts.txt', 'a') as contactfile:
