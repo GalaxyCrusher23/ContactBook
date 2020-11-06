@@ -27,6 +27,7 @@ def enter():
 
     user_input.destroy()
 
+#The procedure for the close button on the intro window
 def close():
     sys.exit()
 
