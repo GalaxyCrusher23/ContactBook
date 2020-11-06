@@ -248,7 +248,7 @@ sortButton.place(x = 0, y = 0)
 saveButton = tkinter.Button(gui, text = "Save", command = saveContacts)
 saveButton.place(x = 465, y = 0)
 
-'''
+#Setting up the Frame for scrollbar and Listbox
 list_frame = Frame(gui)
 scroll_bar = Scrollbar(list_frame, orient = VERTICAL)
 
@@ -257,14 +257,8 @@ contact_list.bind('<Double-1>', selectContact)
 
 scroll_bar.config(command = contact_list.yview)
 scroll_bar.pack(side = RIGHT, fill = Y)
-list_frame.pack()
-contact_list.place(x = 5, y = 75)
-'''
-
-#Setting up the Contact Listbox
-contact_list = tkinter.Listbox(gui, font = contact_fontStyle, fg = "blue", height = 18, width = 31)
-contact_list.bind('<Double-1>', selectContact)
-contact_list.place(x = 5, y = 75)
+list_frame.place(x = 5, y = 75)
+contact_list.pack()
 
 #Cannot resize the window
 gui.resizable(False, False)
